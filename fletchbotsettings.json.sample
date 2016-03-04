@@ -1,0 +1,22 @@
+{
+    "AppId" : "p-jcoLKBynTLew",
+    "AppSecret" : "gko_LXELoV07ZBNUXrvWZfzE3aI",
+    
+    "UserName" : "ImALittleFletchBot",
+    "Password" : "ShortAndStout",
+    
+    "UserAgent": "/u/ImALittleFletchBot 0.01",
+    
+    "MinAge" : 30,
+    "MaxAge" : 90,
+    "Interval" : 5,
+    "MaxPosts" : 25,
+    "MaxComments" : 250,
+    
+    "CommentQuotes" : {
+        "Do you own rubber gloves" : "I Rent them. I have a lease with an option to buy",
+        "I really should change" : "No! I think you should stay the same wonderful person you are today."
+    }
+    
+    
+}
