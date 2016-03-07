@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"regexp"
 
 	"github.com/arbrown/fletchbot/settings"
 	"github.com/jzelinskie/geddit"
@@ -12,7 +13,6 @@ func main() {
 	// Load settings from config file
 	config, err := settings.ReadSettings("fletchbotsettings.json")
 	if err != nil {
-		fmt.Println("Some dumb error")
 		log.Fatal(err)
 	}
 
@@ -34,6 +34,15 @@ func fletchBot(config settings.FletchBotSettings) {
 		log.Fatal(err)
 	}
 
+	// prepare quotes map
+	quotes := make(map[*regex.Regexp]string)
+	for k, s := range config.CommentQuotes {
+		quotes[regexp.Compile(k)] = s
+	}
+
+	// prepare comments set (comments already replied to)
+	commentsSeen := make(map[string]bool)
+
 	err = o.LoginAuth(config.UserName, config.Password)
 	if err != nil {
 		log.Fatal(err)
@@ -54,6 +63,11 @@ func fletchBot(config settings.FletchBotSettings) {
 		}
 		for j, c := range comments {
 			fmt.Printf("\t%d\t%s (%d)\n", j, c.Body, c.Likes)
+			for reg, resp := range quotes {
+				if reg.MatchString(c.Body) {
+					fmt.Printf("Found a match!  I should reply %s here\n", resp)
+				}
+			}
 		}
 	}
 
